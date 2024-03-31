@@ -1,4 +1,4 @@
-# Snake
+# Mouse and Cats
 ### 1.  Description
 
 * Purpose:
