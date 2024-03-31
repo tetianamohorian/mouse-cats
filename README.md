@@ -1,78 +1,54 @@
-# World Game Library
+# Snake
+### 1.  Description
 
-Learn asycnronous C programming by a game.
+* Purpose:
 
-The library implements a game loop for a character-based ncurses game;
+    - This C program simulates a game where a cat tries to catch mice in a world represented by a grid.
+    - The player controls the cat's movement using arrow keys.
+    - Mice move randomly within the grid boundaries.
+    - The game ends when all mice are caught.
 
-The library finds out the event types:
+* Key Features:
 
-- start and end
-- mouse events
-- keyboard events
-- screen resize events
+    - Text-based world representation using curses library.
+    - Random mouse movement.
+    - Cat movement based on user input.
+    - Mouse catching logic.
+    - Basic game state management (playing, winning).
+    - File I/O for saving and loading game states (not implemented fully).
 
-It can print colors and arbitrary characters on the screen. 
-Running is interrupted when character is drawn out of the screen.
+### 2. How to translate and run the program ?
 
-## Installation and Running
+- Install Libraries: Ensure you have the curses library installed. 
+It might come pre-installed on your system or require separate installation.
 
-Make sure, that `ncurses` is installed.
 
-Clone this repository.
+- Compile the program
+    ````c
+    make
+    ````
 
-Compile:
+- Run the program using the command: 
+    ````c
+    ./game
+    ````
 
-```c
-make
-```
-	
-Run:
 
-```c
-./game
-```
+### 3. How the program is programmed?
 
-## Make your own game
+* Key Functions:
+    - init_game(): Initializes the game state, allocating memory for the game structure and setting initial positions for the cat and mice.
+    - game_event(): Handles different game events like key presses, timeouts, and checks for game over conditions.
+        * Updates the cat's position based on user input (arrow keys).
+        * Implements random mouse movement within the grid boundaries.
+        * Detects mouse capture by checking if the cat's position overlaps with a live mouse.
+        * Handles game over logic when all mice are caught (not fully implemented in this snippet).
+        * Provides basic message display and screen clearing functionalities.
+    - save_game() and load_game(): (not fully implemented) 
+    These functions seem intended for saving and loading game states to/from a file.
 
-The game happens in a rectangular world of colorful characters. 
-Your goal as a programmer is to modify the world according to the pressed keys and the internal game state.
-The library implements the game loop and draws the world to screen.
 
-Your game in file `game.c` consists of two functions:
+### 4. Links to source code and websites that were used in the solution
 
-- `void* init_game()` is called in the beginning. Here you can initialize the internal state of the game.
-The function should return  a pointer to an instance of the initial game state `game`.
-- `int game_event(struct event* event,void* game)`
-is called by the game loop in periodic interval or when a key was pressed. Non-zero return value or `Ctrl+C` key interrupts the game loop.
-
-The world variable represents state of two-dimensional grid of characters on the screen. The screen matrix looks like this:
-
-```
-   origin
-   [0,0]     width
-  +--------------------+
-h |                    |
-e |                    |
-i |                    |
-g |                    |
-h |                    |
-t |                    |
-  +--------------------+
-```
-
-The world  has the following parameters:
-
-- `int height`: y-dimension of the grid.
-- `int width`: x-dimension of the grid.
-- `int interval`: maximum time between steps in milliseconds.
-
-### The Event Function
-
-The `int game_event(struct event* event,void* game)`
- function should:
-
-1. Read the game state (from the `void* game`) pointer.
-1. Examine the pressed key from event pointer. If the `key` variable is non-zero, a key was pressed. According to the pressed key, modify the game state `game`.
-1. Draw the game state. In the beginning of the step function the screen is empty.
-1. Returning non-zero value ends the game loop. 
-
+-   [GitHub Game World](https://github.com/hladek/world)
+-   [ncurses](https://man7.org/linux/man-pages/man3/ncurses.3x.html)
